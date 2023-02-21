@@ -94,17 +94,22 @@ lista_numeros = [23, 24, 25, 26, 27]
 for num in lista_numeros:
     if num == 25:
         break  
-    print(num)
+    # print(num)
     # 23
     # 24
 
 for num in lista_numeros:
     if num == 25:
         continue  
-    print(num)
+    # print(num)
     # 23
     # 24
     # 26
     # 27
 
 #print(lista_numeros[2]) 
+
+cadena_texto = 'Hola, soy alumno del G11 backend'
+# for letra in cadena_texto:
+    # print(letra)
+print(cadena_texto[0])
