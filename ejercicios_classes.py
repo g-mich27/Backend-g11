@@ -1,6 +1,8 @@
 # crear una classe operaciones con sus respectivos metodos
 # (sumar, restar, multiplicar y dividir). Esta clase recibira 2 numeros
 
+from pprint import pprint
+
 class OperacionesMatematicas:
     def __init__(self, valor_1, valor_2):
         self.a = valor_1
@@ -23,4 +25,28 @@ class OperacionesMatematicas:
 
 operaciones = OperacionesMatematicas(5, 3)
 
-print(operaciones.dividir())
+# print(operaciones.dividir())
+
+# Crear una clase Usuario que reciba los datos de un usuario
+# (nombre, edad, dni, estatura, estado civil) y convertir estos datos en un diccionario
+
+class Usuario:
+    def __init__(self, nombre, edad, dni, estatura, estado_civil) -> None:
+        self.nombre = nombre
+        self.edad = edad
+        self.dni = dni
+        self.estatura = estatura
+        self.estado_civil = estado_civil
+
+    def convertirDiccionario(self):
+        return {
+            'nombre': self.nombre,
+            'edad': self.edad,
+            'dni': self.dni,
+            'estatura': self.estatura,
+            'estado_civil': self.estado_civil
+        }
+
+usuario = Usuario('Paolo', 25, 77337722, 1.80, 'soltero')
+
+pprint(usuario.convertirDiccionario())
