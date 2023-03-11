@@ -8,10 +8,11 @@ class NivelController(Resource):
     # GET, POST, PUT 
     def get(self):
         query: Query = conexion.session.query(Nivel)
+
         # SELECT * FROM niveles;
         resultado = query.all()
-
         dto = NivelDto()
+
         # dump > es un metodo en el cual le paso la/las instancias que quiero convertir a tipos de datos genericos. Si se le pasa mas de una instancia, osea una lista de instancias, se le tiene que adicionar el parametro many=True para indicar que lo tendra que iterar
         niveles = dto.dump(resultado, many=True)
        
@@ -29,6 +30,7 @@ class NivelController(Resource):
     def post(self):
         data = request.json
         dto = NivelDto()
+
         # load > aca le pasamos un diccionario y lo convertira y validara si toda la informacion es correcta, si no lo es, emitira un error y si la informacion esta bien, entonces devolvera un diccionario con la data correcta
         try:
             data_validada =dto.load(data)
@@ -54,7 +56,14 @@ class UnNivelController(Resource):
     def get(self, id):
         query: Query = conexion.session.query(Nivel)
         nivel_encontrado = query.filter_by(id= id).first()
+        
         # TODO: Implementar si no existe ese nivel, retornar un message diciendo que el nivel no existe
+
+        if (not nivel_encontrado):
+            return {
+                'message': 'El nivel no existe'
+            }
+
         dto = NivelDto()
         resultado = dto.dump(nivel_encontrado)
 

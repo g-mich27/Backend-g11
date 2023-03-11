@@ -4,7 +4,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 # le estamos diciendo que puede acceder cualquier origen, cualquier metodo y enviar cualquier header
-CORS(app, methods = ['GET', 'POST', 'PUT', 'DELETE'], origins= ['http://localhost:5500', 'http://127.0.0.1:5500'])
+CORS(app, 
+    methods = ['GET', 'POST', 'PUT', 'DELETE'],
+    origins= ['http://localhost:5000', 'http://127.0.0.1:5000'])
 
 
 # me conecto a la bd
@@ -12,9 +14,9 @@ conexion = connect(host='localhost', database='pruebas', user='postgres', passwo
 
 @app.route('/', methods = ['GET'])
 def inicial():...
-#     return {
-#         'message': 'Bienvenido a mi API'
-#     }
+    # return {
+    #     'message': 'Bienvenido a mi API'
+    # }
 
 @app.route('/alumnos', methods = ['GET', 'POST'])
 def alumnos():
@@ -87,11 +89,41 @@ def gestion_alumno(id):
         
     elif request.method == 'PUT':
         # TODO: Recibir la informacion del body y el id por la url y modificar la data del alumno, primero validar si el alumno existe, si no existe no hacer ninguna modificacion, si existe hacer la modificacion
-        pass
+
+        data = request.json
+        cursor = conexion.cursor()
+        cursor.execute('SELECT * FROM alumnos WHERE id = %s', (id,))
+        alumno = cursor.fetchone()
+        if alumno == None:
+            return { 
+                    'message': 'El alumno no existe'
+            }
+        cursor.execute(
+            'UPDATE ALUMNOS SET nombre=%s, apellido=%s, matriculado=%s WHERE id = %s',
+            (data.get('nombre'), data.get('apellido'), data.get('matriculado'), id)
+        )
+        conexion.commit()
+        cursor.close()
+        return { 
+            'message': 'El alumno se actualizó correctamente'
+            }
 
     elif request.method == 'DELETE':
         # TODO: Recibir el id por la url y validar si el alumno existe, si existe, eliminarlo (hacer un delete) caso contrario indicar que el alumno no existe
-        pass
+
+        cursor = conexion.cursor()
+        cursor.execute('SELECT * FROM alumnos WHERE id = %s', (id,))
+        alumno = cursor.fetchone()
+        if alumno == None:
+            return { 
+                'message': 'El alumno no existe'
+                }
+        cursor.execute('DELETE FROM alumnos WHERE id = %s', (id,))
+        conexion.commit()
+        cursor.close()
+        return { 
+            'message': 'El alumno se eliminó correctamente'
+            }
 
 if __name__ == '__main__':
     # debug > indicar que cada vez que guardemos un archivo del proyecto el servidor se reinicie automaticamente

@@ -1,6 +1,6 @@
 
 const pedirAlumnos = async () => {
-  const respuesta = await fetch("http://localhost:5000/alumnos", {
+  const respuesta = await fetch("http://localhost:5000/alumnos", { 
     method: "GET",
   });
 
