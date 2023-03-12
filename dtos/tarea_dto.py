@@ -1,7 +1,7 @@
-# from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-# from models.tarea_model import Tarea
+from models.tarea_model import Tarea
 
-# class TareaDto(SQLAlchemyAutoSchema):
-#     class Meta:
-#         model = Tarea
+class TareaDto(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Tarea
