@@ -21,7 +21,6 @@ class RegistroController(Resource):
             nuevo_usuario = Usuario(**data_serializada)
 
             conexion.session.add(nuevo_usuario)
-            # conexion.session.commit()
 
             enviar_correo(
                 nuevo_usuario.correo,
