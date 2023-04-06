@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='usuario',
-            old_name='tipo_usuario',
-            new_name='tipoUsuario',
-        ),
         migrations.CreateModel(
             name='Mascota',
             fields=[
